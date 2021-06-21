@@ -1,19 +1,28 @@
 const Discord = require("discord.js");
-const resp_json = require("../resp.json")
+const resp_json = require("../resp.json");
 
 module.exports = {
     name: "infoRole",
     util: "js.infoRole <nom_du_rôle>",
     execute(message, args) {
+        let args_2 = "";
+        for (let index = 0; index < args.length; index++) {
+            if (args_2 === "") {
+                args_2 = args[index];
+            } else {
+                args_2 += " " + args[index]
+            }
+        }
         if ((message.member.roles.cache.has("408261421894205440") === true) || (message.member.roles.cache.has("699538325341601802") === true) || (message.author.id === "234058359567810570")) { // remplacer l'id par l'id modo
-            let role = message.guild.roles.cache.find(r => r.name === args[0]);
+            let role = message.guild.roles.cache.find(r => r.name === args_2);
             message.delete() // suppression du message
             if (role === undefined) {
                 message.reply(`ce rôle n'existe pas ou tu ne l'as pas correctement écrit \n Rappel d'utilisation de la commande : ${this.util}`);
             } else {
                 let role_tag = "<@&" + role.id + ">";
                 let resp = "";
-                let field = message.guild.roles.cache.get(role.id).members.map(m => m.user.tag).join('\n')
+                let field = message.guild.roles.cache.get(role.id).members.map(m => m.user.tag).join('\n');
+                console.log(field);
                 switch (role.name) {
                     case "Art.":
                         resp = resp_json.art;
@@ -54,12 +63,19 @@ module.exports = {
                 const ListEmbed = new Discord.MessageEmbed()
                     .setTitle(`Matière : ${role.name}`)
                     .addField("Responsable de la matière :", resp)
-                    .addField("Liste des référents :", field);
+                    //.addField("Liste des référents :", field);
+
+                let cont =""
+                for (let i = 0; i < field.length; i += 1024) {
+                    cont = field.substring(i, Math.min(field.length, i + 1024))
+                    ListEmbed.addField("Liste des membres :", cont)
+                }
                 if (ListEmbed.length > 6000) {
                     message.channel.send(`Erreur, la taille de l'embed (${ListEmbed.length}) est supérieure à la limite de 6000 caractères. As-tu bien écrit le rôle ? \n Si tu voulais voir les infos d'un rôle référent, n'oublie pas le "." à la fin`)
                     return;
                 }
                 message.channel.send(ListEmbed);
+                console.log(ListEmbed.length);
             }
         } else {
             message.reply("vous n'avez pas la permission d'utiliser cette commande")
