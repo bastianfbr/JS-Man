@@ -1,5 +1,6 @@
 const Discord = require("discord.js"),
     fs = require("fs");
+const package = require("../package.json")
 
 module.exports = {
     name: "help",
@@ -18,7 +19,7 @@ module.exports = {
                 .setTitle('Liste des commandes')
                 .setDescription('Voici la liste des commandes et leurs utilisations')
                 .setThumbnail('https://cdn.discordapp.com/avatars/844692612304470037/5c8d9638d085e52b2cffde0743e4a23b.webp?size=512')
-                .setFooter('Commandes de JS Man : Version 1.1.2', 'https://cdn.discordapp.com/avatars/844692612304470037/5c8d9638d085e52b2cffde0743e4a23b.webp?size=512');
+                .setFooter('Commandes de JS Man : Version '+ package.version, 'https://cdn.discordapp.com/avatars/844692612304470037/5c8d9638d085e52b2cffde0743e4a23b.webp?size=512');
 
             for (const [cmd, val] of message.client.commands) {
                 if (val.util !== undefined) {
