@@ -18,7 +18,7 @@ module.exports = {
                 .setTitle('Liste des commandes')
                 .setDescription('Voici la liste des commandes et leurs utilisations')
                 .setThumbnail('https://cdn.discordapp.com/avatars/844692612304470037/5c8d9638d085e52b2cffde0743e4a23b.webp?size=512')
-                .setFooter('Commandes de JS Man', 'https://cdn.discordapp.com/avatars/844692612304470037/5c8d9638d085e52b2cffde0743e4a23b.webp?size=512');
+                .setFooter('Commandes de JS Man : Version 1.1.2', 'https://cdn.discordapp.com/avatars/844692612304470037/5c8d9638d085e52b2cffde0743e4a23b.webp?size=512');
 
             for (const [cmd, val] of message.client.commands) {
                 if (val.util !== undefined) {
