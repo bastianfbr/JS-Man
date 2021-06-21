@@ -19,7 +19,6 @@ module.exports = {
             if (role === undefined) {
                 message.reply(`ce rôle n'existe pas ou tu ne l'as pas correctement écrit \n Rappel d'utilisation de la commande : ${this.util}`);
             } else {
-                let role_tag = "<@&" + role.id + ">";
                 let resp = "";
                 let field = message.guild.roles.cache.get(role.id).members.map(m => m.user.tag).join('\n');
                 console.log(field);
@@ -63,8 +62,6 @@ module.exports = {
                 const ListEmbed = new Discord.MessageEmbed()
                     .setTitle(`Matière : ${role.name}`)
                     .addField("Responsable de la matière :", resp)
-                    //.addField("Liste des référents :", field);
-
                 let cont =""
                 for (let i = 0; i < field.length; i += 1024) {
                     cont = field.substring(i, Math.min(field.length, i + 1024))
