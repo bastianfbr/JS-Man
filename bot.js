@@ -1,15 +1,13 @@
-require('dotenv').config();
 const Discord = require("discord.js"),
     client = new Discord.Client({
         fetchAllMembers: true
     });
-config = require("./config.json");
 fs = require("fs");
 const database = require("./pause.json"); typeof database;
 let moment = require("moment")
 
 
-client.login(config.token);
+client.login(process.env.token);
 client.commands = new Discord.Collection();
 
 fs.readdir("./commands", (err, files) => { // lecture du dossier commands
@@ -26,8 +24,8 @@ client.on("message", message => {
 
     const args = message.content.trim().split(/ +/g) // lecture en découpage
     const commandName = args.shift() // renvoi de la deuxième valeur correspondante (la commande)
-    if (!commandName.startsWith(config.prefix)) return // si commande ne commence pas par le préfixe, retour
-    const cmd = client.commands.get(commandName.slice(config.prefix.length)) // couper au préfixe
+    if (!commandName.startsWith(process.env.prefix)) return // si commande ne commence pas par le préfixe, retour
+    const cmd = client.commands.get(commandName.slice(process.env.prefix.length)) // couper au préfixe
     if (!cmd) {
         message.reply(`La commande que tu as entrée n'existe pas, utilise la commande js.help pour voir les commandes disponibles`)
         return;
@@ -41,7 +39,7 @@ client.on('ready', () => {
     client.user.setPresence({
         status: 'online',
         activity: {
-            name: `Préfixe : ${config.prefix}`,
+            name: `Préfixe : ${process.env.prefix}`,
             type: "PLAYING"
         }
     });
