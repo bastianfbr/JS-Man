@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Discord = require("discord.js"),
     client = new Discord.Client({
         fetchAllMembers: true
