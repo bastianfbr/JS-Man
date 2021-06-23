@@ -1,4 +1,0 @@
-{
-    "token": process.env.token,
-    "prefix": "js."
-}
