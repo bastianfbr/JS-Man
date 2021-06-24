@@ -1,3 +1,10 @@
+const http = require('http');
+const server = http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end('ok');
+});
+server.listen(3000);
+
 const Discord = require("discord.js"),
     client = new Discord.Client({
         fetchAllMembers: true
@@ -21,7 +28,18 @@ fs.readdir("./commands", (err, files) => { // lecture du dossier commands
 
 client.on("message", message => {
     if (message.type !== "DEFAULT" || message.author.bot) return // si message du bot ou pas défaut, retour
-
+    const aymaide = client.guilds.cache.get('408259630989312001').name;
+    setInterval(() => {
+        for (var i in database) {
+            if (moment().locale('fr').format('L') === database[i]) {
+                var member = client.guilds.cache.get('408259630989312001').members.cache.get(i);
+                let role = message.guild.roles.cache.find(r => r.name === "Pause");
+                member.roles.remove(role);
+                delete database[i]; fs.writeFileSync("./pause.json", JSON.stringify(database));
+                member.send(`Ta pause est terminée, au boulot dans le serveur ${aymaide} \n<a:blob_happy:856458298307510291> Tu as de nouveau accès au serveur. À très vite!`);
+            };
+        };
+    }, 60000);
     const args = message.content.trim().split(/ +/g) // lecture en découpage
     const commandName = args.shift() // renvoi de la deuxième valeur correspondante (la commande)
     if (!commandName.startsWith(process.env.prefix)) return // si commande ne commence pas par le préfixe, retour
@@ -43,18 +61,6 @@ client.on('ready', () => {
             type: "PLAYING"
         }
     });
-    const aymaide = client.guilds.cache.get('408259630989312001').name;
-    setInterval(() => {
-        for (var i in database) {
-            if (moment().locale('fr').format('L') === database[i]) {
-                var member = client.guilds.cache.get('408259630989312001').members.cache.get(i);
-                let role = message.guild.roles.cache.find(r => r.name === "Pause");
-                member.roles.remove(role);
-                delete database[i]; fs.writeFileSync("./pause.json", JSON.stringify(database));
-                member.send(`Ta pause est terminée, au boulot dans le serveur ${aymaide} \n<a:blob_happy:856458298307510291> Tu as de nouveau accès au serveur. À très vite!`);
-            };
-        };
-    }, 60000);
 });
 
 client.on('guildMemberUpdate', (oldMember, newMember) => {
