@@ -10,7 +10,8 @@ const Discord = require("discord.js"),
         fetchAllMembers: true
     });
 fs = require("fs");
-const database = require("./pause.json"); typeof database;
+const database_pause = require("./pause.json"); typeof database;
+const database_test = require("./test.json"); typeof database;
 let moment = require("moment")
 
 
@@ -30,16 +31,26 @@ client.on("message", message => {
     if (message.type !== "DEFAULT" || message.author.bot) return // si message du bot ou pas défaut, retour
     const aymaide = client.guilds.cache.get('408259630989312001').name;
     setInterval(() => {
-        for (var i in database) {
-            if (moment().locale('fr').format('L') === database[i]) {
-                var member = client.guilds.cache.get('408259630989312001').members.cache.get(i);
+        for (var i in database_pause) {
+            if (moment().locale('fr').format('L') === database_pause[i]) {
+                let member = client.guilds.cache.get('408259630989312001').members.cache.get(i);
                 let role = message.guild.roles.cache.find(r => r.name === "Pause");
                 member.roles.remove(role);
-                delete database[i]; fs.writeFileSync("./pause.json", JSON.stringify(database));
+                delete database_pause[i]; fs.writeFileSync("./pause.json", JSON.stringify(database_pause));
                 member.send(`Ta pause est terminée, au boulot dans le serveur ${aymaide} \n<a:blob_happy:856458298307510291> Tu as de nouveau accès au serveur. À très vite!`);
             };
         };
-    }, 60000);
+
+        for (var i in database_test) {
+            if (moment().locale('fr').format('L') === database_test[i].date) {
+                let member = client.guilds.cache.get('408259630989312001').members.cache.get(i);
+                let auth = client.guilds.cache.get('408259630989312001').members.cache.get(database_test[i].author);
+                let channel = message.guild.channels.cache.get("850310846605557771");
+                delete database_test[i]; fs.writeFileSync("./pause.json", JSON.stringify(database_test));
+                channel.send(`<a:blob_happy:856458298307510291> Attention ${auth}, ${member} n'est plus en phase de test`);
+            };
+        }
+    }, 6000);
     const args = message.content.trim().split(/ +/g) // lecture en découpage
     const commandName = args.shift() // renvoi de la deuxième valeur correspondante (la commande)
     if (!commandName.startsWith(process.env.prefix)) return // si commande ne commence pas par le préfixe, retour

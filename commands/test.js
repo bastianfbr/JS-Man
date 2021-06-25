@@ -7,7 +7,7 @@ module.exports = {
     util: "js.test <@Membre>",
     async execute(message, args) {
         moment.locale("fr");
-        let auth = message.author;
+        let auth = message.author.id;
         let member = message.mentions.members.first();
         message.delete();
         if (member === undefined) {
@@ -19,7 +19,10 @@ module.exports = {
         let date_after_1 = date_now.clone().add(16, 'day').format('L');
         message.channel.send(`${member} est maintenant en test jusqu'au ${date_after}`);
         message.channel.send(`Le rappel se fera donc le ${date_after_1}`)
-        database[member.id] = date_after_1;
-        fs.writeFileSync("../test.json", JSON.stringify(database));
+        database[member.id] = {
+            author: auth,
+            date: date_after_1
+        }
+        fs.writeFileSync("./test.json", JSON.stringify(database));
     },
 };
