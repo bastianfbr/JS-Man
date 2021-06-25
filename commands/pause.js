@@ -17,9 +17,11 @@ module.exports = {
         let role = message.guild.roles.cache.find(r => r.name === "Pause");
         let date_now = moment();
         let date_after = date_now.clone().add(parseInt(args[1]), 'day').format('L');
+        let date_after_1 = date_now.clone().add(parseInt(args[1]) + 1, 'day').format('L');
         member.roles.add(role);
         message.channel.send(`${member} est maintenant en pause jusqu'au ${date_after}`);
-        database[member.id] = date_after; 
+        message.channel.send(`Le rappel se fera donc le ${date_after_1}`)
+        database[member.id] = date_after_1;
         fs.writeFileSync("./pause.json", JSON.stringify(database));
     },
 };
