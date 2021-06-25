@@ -45,7 +45,7 @@ client.on("message", message => {
             if (moment().locale('fr').format('L') === database_test[i].date) {
                 let member = client.guilds.cache.get('408259630989312001').members.cache.get(i);
                 let auth = client.guilds.cache.get('408259630989312001').members.cache.get(database_test[i].author);
-                let channel = message.guild.channels.cache.get("850310846605557771");
+                let channel = message.guild.channels.cache.get("777221167727640606");
                 delete database_test[i]; fs.writeFileSync("./pause.json", JSON.stringify(database_test));
                 channel.send(`<a:blob_happy:856458298307510291> Attention ${auth}, ${member} n'est plus en phase de test`);
             };
