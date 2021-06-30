@@ -17,7 +17,7 @@ module.exports = {
             let role = message.guild.roles.cache.find(r => r.name === args_2);
             message.delete() // suppression du message
             if (role === undefined) {
-                message.reply(`ce rôle n'existe pas ou tu ne l'as pas correctement écrit \n Rappel d'utilisation de la commande : ${this.util}`);
+                message.reply(`ce rôle n'existe pas ou tu ne l'as pas correctement écrit \n Rappel d'utilisation de la commande : ${this.util} \n Autre rappel : Certains rôles ont un ***point spécial***, il faut écrire correctement le rôle. Voici le point pour faciliter l'écriture : •`);
             } else {
                 let resp = "";
                 let field = message.guild.roles.cache.get(role.id).members.map(m => m.user.tag).join('\n');
@@ -62,7 +62,7 @@ module.exports = {
                 const ListEmbed = new Discord.MessageEmbed()
                     .setTitle(`Matière : ${role.name}`)
                     .addField("Responsable de la matière :", resp)
-                let cont =""
+                let cont = ""
                 for (let i = 0; i < field.length; i += 1024) {
                     cont = field.substring(i, Math.min(field.length, i + 1024))
                     ListEmbed.addField("Liste des membres :", cont)
