@@ -31,8 +31,8 @@ module.exports = {
                                     ]
                                 });
                             } else {
-                                if (role.name === "Modérateur•trice.") {
-                                    member.send(`:up: ${message.author} t'as ajouté le rôle ${role.name}. \n :incoming_envelope: Voici le guide des référents :\n Si vous avez des questions, n'hésitez pas à contacter un membre du bureau. Votre phase de test commence dès réception de ce guide.`, {
+                                if (role.name === "Modérateur•trice") {
+                                    member.send(`:up: ${message.author} t'as ajouté le rôle ${role.name}. \n :incoming_envelope: Voici le guide des modérateurs :\n Si vous avez des questions, n'hésitez pas à contacter un membre du bureau. Votre phase de test commence dès réception de ce guide.`, {
                                         files: [
                                             "./files/Conduite_des_moderateurs.pdf"
                                         ]
