@@ -19,7 +19,7 @@ module.exports = {
                     message.reply(`ce membre n'existe pas ou tu ne l'as pas correctement écrit \n Rappel d'utilisation de la commande : ${this.util}`);
                 } else {
                     if (role === undefined) {
-                        message.reply(`ce rôle n'existe pas ou tu ne l'as pas correctement écrit \n Rappel d'utilisation de la commande : ${this.util}`);
+                        message.reply(`ce rôle n'existe pas ou tu ne l'as pas correctement écrit \n Rappel d'utilisation de la commande : ${this.util} \n Autre rappel : Certains rôles ont un ***point spécial***, il faut écrire correctement le rôle. Voici le point pour faciliter l'écriture : •`);
                     } else {
                         try { // si erreur ne pas stop bot
                             member.roles.add(role)
@@ -31,7 +31,7 @@ module.exports = {
                                     ]
                                 });
                             } else {
-                                if (role.name === "Modérateur•trice") {
+                                if (role.name === "Modérateur•trice.") {
                                     member.send(`:up: ${message.author} t'as ajouté le rôle ${role.name}. \n :incoming_envelope: Voici le guide des référents :\n Si vous avez des questions, n'hésitez pas à contacter un membre du bureau. Votre phase de test commence dès réception de ce guide.`, {
                                         files: [
                                             "./files/Conduite_des_moderateurs.pdf"
