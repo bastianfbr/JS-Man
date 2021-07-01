@@ -16,7 +16,7 @@ module.exports = {
                 let member = message.mentions.members.first();
                 message.delete() // suppression du message
                 if (member === undefined) {
-                    message.reply(`ce membre n'existe pas ou tu ne l'as pas correctement écrit \n Rappel d'utilisation de la commande : ${this.util}`);
+                    message.reply(`ce rôle n'existe pas ou tu ne l'as pas correctement écrit \n Rappel d'utilisation de la commande : ${this.util} \n Autre rappel : Certains rôles ont un ***point spécial***, il faut écrire correctement le rôle. Voici le point pour faciliter l'écriture : •`);
                 } else {
                     if (role === undefined) {
                         message.reply(`ce rôle n'existe pas ou tu ne l'as pas correctement écrit \n Rappel d'utilisation de la commande : ${this.util}`);
